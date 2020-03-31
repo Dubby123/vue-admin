@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Message } from "element-ui";
-// import { getToKen, getUserName } from "@/utils/app";
+import { getToKen, getUserName } from "@/utils/app";
 
 const BASEURL = process.env.NODE_ENV === 'production' ? '' : '/devApi';
 const service = axios.create({
@@ -20,8 +20,8 @@ service.interceptors.request.use(function (config) {
   // sui
   // 业务需求
   // 最终目地不是在请求头添加参数
-  // config.headers['Tokey'] = getToKen()
-  // config.headers['UserName'] = getUserName()
+  config.headers['Tokey'] = getToKen()
+  config.headers['UserName'] = getUserName()
 
   return config;
 }, function (error) {

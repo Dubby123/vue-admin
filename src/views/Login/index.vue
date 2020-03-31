@@ -219,6 +219,7 @@
             message: res.data.message,
             type: 'success'
           });
+          this.$router.push({name:'console'})
         })
       },
       resetForm(formName) {
