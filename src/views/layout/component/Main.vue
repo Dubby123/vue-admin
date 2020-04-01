@@ -1,6 +1,6 @@
 <template>
     <div id="main-warp">
-        主要部分
+        <router-view/>
     </div>
 </template>
 

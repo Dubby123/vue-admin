@@ -7,37 +7,57 @@ const routes = [
   {
     path: '/',
     redirect:'/login',
+    hidden:true
   },
   {
     path: '/login',
-    name:'login',
-    component: () => import( '../views/Login/index.vue')
+    name:'登录',
+    hidden:true,
+    component: () => import( '../views/Login/Index.vue')
   },
   {
     path: '/console',
+    redirect:'index.vue',
+    name: '控制台',
     component: layout,
     children:[{
       path: '/index',
-      name: 'console',
-      component: () => import( '../views/Console/index.vue'),
+      name: '首页',
+      component: () => import( '../views/Console/Index'),
     }]
   },
   {
     path: '/info',
+    name:'信息管理',
     component: layout,
     children:[
       {
-      path: '/index',
-      component: () => import( '../views/Console/index.vue'),
+      path: '/infoIndex',
+      name:'信息类表',
+      component: () => import( '../views/Info/Index'),
     },
       {
-        path: '/category',
-        component: () => import( '../views/Console/index.vue'),
+        path: '/infoCategory',
+        name:'信息分类',
+        component: () => import( '../views/Info/Category'),
       },
       {
-        path: '/detail',
-        component: () => import( '../views/Console/index.vue'),
+        path: '/InfoDetail',
+        name:'信息详情',
+        component: () => import( '../views/Info/Detailed'),
       }
+    ]
+  },
+  {
+    path: '/user',
+    name:'用户管理',
+    component: layout,
+    children:[
+      {
+        path: '/userIndex',
+        name:'用户列表',
+        component: () => import( '../views/User/Index'),
+      },
     ]
   }
 ]

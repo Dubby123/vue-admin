@@ -1,24 +1,23 @@
 <template>
     <div id="menu-warp">
-        <el-menu default-active="1-4-1" class="el-menu-vertical-demo"
-                 @open="handleOpen"
-                 @close="handleClose"
+        <el-menu default-active="1-1" class="el-menu-vertical-demo"
                  :collapse="isCollapse"
                  background-color="transparent"
                  text-color="#ffffff"
-
+                 :router="true"
         >
-            <el-submenu index="1">
-                <template slot="title">
-                    <i class="el-icon-location"></i>
-                    <span slot="title">导航一</span>
-                </template>
-                <el-menu-item-group>
-                    <el-menu-item index="1-1">选项1</el-menu-item>
-                    <el-menu-item index="1-2">选项2</el-menu-item>
-                </el-menu-item-group>
-            </el-submenu>
-
+            <template v-for="(item ,index) in routerList" >
+                <el-submenu :index="''+index"  v-if="!item.hidden"  :key="item.id">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span slot="title">{{item.name}}</span>
+                    </template>
+<!--                    子菜单-->
+                    <template v-for="subItem in item.children" >
+                        <el-menu-item   :index = "subItem.path"   :key="subItem.id"> {{ subItem.name }}</el-menu-item>
+                    </template>
+                </el-submenu>
+            </template>
         </el-menu>
     </div>
 </template>
@@ -31,16 +30,13 @@
         isCollapse: false
       };
     },
-    created(){
-     console.log(' this.$route', this.$route)
+    computed:{
+      routerList(){
+        return this.$router.options.routes
+      }
     },
     methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
+
     }
   }
 </script>
