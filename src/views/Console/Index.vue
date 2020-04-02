@@ -1,12 +1,13 @@
 <template>
     <div>
-        控制台
+        控制台123132123
     </div>
 </template>
 
 <script>
   export default {
-    name: "index"
+    name: "index",
+
   }
 </script>
 

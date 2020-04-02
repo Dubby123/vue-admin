@@ -93,7 +93,7 @@
         timer:0,
         ruleForm: {
           username: '2509137198@qq.com',
-          password: '',
+          password: '20114180229hd',
           passwords:'',
           code: ''
         },
@@ -118,6 +118,7 @@
         }
       }
     },
+
     methods:{
 
       //点击切换
@@ -207,19 +208,21 @@
           this.toggleMenu('login')
         })
       },
-      login(){
+      login() {
         let requestData = {
-          username:this.ruleForm.username,
+          username: this.ruleForm.username,
           password: sha1(this.ruleForm.password),
-          code:this.ruleForm.code,
+          code: this.ruleForm.code,
           module: 'login'
         }
-        Login(requestData).then( res=>{
+        this.$store.dispatch('login/GET_USERINFO', requestData).then(res => {
           this.$message({
             message: res.data.message,
             type: 'success'
           });
-          this.$router.push({name:'console'})
+          this.$router.push({ path: 'console' })
+        }).catch(err=>{
+          console.log(err)
         })
       },
       resetForm(formName) {

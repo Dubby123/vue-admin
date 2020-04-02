@@ -17,7 +17,7 @@ const routes = [
   },
   {
     path: '/console',
-    redirect:'index.vue',
+    redirect:'index',
     name: '控制台',
     component: layout,
     children:[{
