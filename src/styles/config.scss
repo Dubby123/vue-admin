@@ -13,7 +13,7 @@ $mainCcolor: #f56c6c;
 }
 
 @mixin labelDom($align, $width, $line-height: "normal"){
-  label {
+  .label {
     float: left;
     width: $width + px;
     text-align: $align;

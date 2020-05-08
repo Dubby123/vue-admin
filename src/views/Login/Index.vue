@@ -43,7 +43,7 @@
 
 <script>
   import {validateEmail,validatePass,validateVCode,} from '../../utils/validate'
-  import {Getsms ,Login , Register } from "../../api/login";
+  import {Getsms  , Register } from "../../api/login";
   var sha1 = require('sha1');
   export default {
     name: "index",
@@ -146,7 +146,6 @@
         }
 
         Getsms(resquestData).then(res =>{
-          console.log(' res.message', res)
           this.$message({
             message: res.data.message,
             type: 'success'
@@ -217,7 +216,7 @@
         }
         this.$store.dispatch('login/GET_USERINFO', requestData).then(res => {
           this.$message({
-            message: res.data.message,
+            message: res.message,
             type: 'success'
           });
           this.$router.push({ path: 'console' })

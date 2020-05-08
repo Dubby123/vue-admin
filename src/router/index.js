@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import layout from '../views/layout/index.vue'
+import  { getToKen } from "../utils/app";
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -61,9 +63,20 @@ const routes = [
     ]
   }
 ]
+ const whiteRouter = ['/login']
 
 const router = new VueRouter({
   routes
 })
-
+router.beforeEach((to ,from,next)=>{
+  if( whiteRouter.indexOf(to.path)!==-1){
+    next()
+  }else {
+    if(!getToKen() ){
+      next('/login')
+    }else {
+      next()
+    }
+  }
+})
 export default router

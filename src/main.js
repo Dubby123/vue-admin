@@ -6,7 +6,9 @@ import ElementUI from 'element-ui';
 import './styles/main.scss'
 import './icons/index'
 import 'element-ui/lib/theme-chalk/index.css';
+import  global from './utils/global' //全局注册方法
 
+Vue.use(global)
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 new Vue({

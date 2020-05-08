@@ -7,8 +7,6 @@ const service = axios.create({
   baseURL: BASEURL,  // http://192.168.0.106:8080/devApi/  == http://www.web-jshtml.cn/productapi/productapi
   timeout: 15000,   // 超时
 });
-
-
 /**
  * 请求接口前，做一些数据处理（请求拦截器）
  */
@@ -22,7 +20,6 @@ service.interceptors.request.use(function (config) {
   // 最终目地不是在请求头添加参数
   config.headers['Tokey'] = getToKen()
   config.headers['UserName'] = getUserName()
-
   return config;
 }, function (error) {
 // 对请求错误做些什么

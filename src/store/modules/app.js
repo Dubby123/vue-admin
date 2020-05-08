@@ -11,7 +11,6 @@
       state.isCollapse = !state.isCollapse
       sessionStorage.setItem('isCollapse',JSON.stringify(state.isCollapse ))
     }
-
  }
 export default {
   namespaced: true,
