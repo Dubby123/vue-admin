@@ -46,6 +46,7 @@ const routes = [
       {
         path: '/InfoDetail',
         name:'信息详情',
+        hidden:true,
         component: () => import( '../views/Info/Detailed'),
       }
     ]

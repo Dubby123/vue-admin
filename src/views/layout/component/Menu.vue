@@ -17,7 +17,7 @@
                     </template>
 <!--                    子菜单-->
                     <template v-for="subItem in item.children" >
-                        <el-menu-item   :index = "subItem.path"   :key="subItem.id"> {{ subItem.name }}</el-menu-item>
+                        <el-menu-item   :index = "subItem.path"  v-if="!subItem.hidden" :key="subItem.id"> {{ subItem.name }}</el-menu-item>
                     </template>
                 </el-submenu>
             </template>

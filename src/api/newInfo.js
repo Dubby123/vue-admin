@@ -7,3 +7,12 @@ export function GetList(data) {
     data:data
   })
 }
+//添加信息
+export function AddItem(data) {
+  return service.request({
+    method:'post',
+    url:'/news/add/',
+    data:data
+  })
+}
+

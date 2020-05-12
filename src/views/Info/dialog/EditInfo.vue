@@ -1,9 +1,9 @@
 <template>
     <div class="dialog_box">
         <el-dialog title="新增" :visible.sync="dialogFormVisible" @close="closeDialog">
-            <el-form :model="form">
+            <el-form :model="form" ref='addInfo'>
                 <el-form-item label="标题" :label-width="formLabelWidth">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
+                    <el-select v-model="form.category" placeholder="请选择活动区域">
                         <el-option v-for="item in category"
                                    :key="item.id"
                                    :label="item.category_name"
@@ -11,28 +11,33 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="标题" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off"></el-input>
+                    <el-input v-model="form.title" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="概况" :label-width="formLabelWidth">
-                    <el-input v-model="form.name" autocomplete="off"></el-input>
+                <el-form-item label="内容" :label-width="formLabelWidth">
+                    <el-input v-model="form.content" autocomplete="off"></el-input>
+                </el-form-item>
+                 <el-form-item >
+                     <el-button type="primary" @click="submitAdd">确 定</el-button>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="closeDialog">取 消</el-button>
-                <el-button type="primary" @click="closeDialog">确 定</el-button>
+                <el-button type="primary" @click="submitAdd">确 定</el-button>
             </div>
         </el-dialog>
     </div>
 </template>
 
 <script>
+  import { AddItem } from '../../../api/newInfo'
   export default {
     name: "category",
     data() {
       return {
         form: {
-          name: '',
-          region: '',
+          category:'',
+          title: '',
+          content: '',
         },
         formLabelWidth: '70px',
         dialogFormVisible: false
@@ -60,7 +65,14 @@
         // this.$emit('close',this.dialogFormVisible)
         //可以直接修改父组件的值
         this.$emit('update:flag', this.dialogFormVisible)
+      },
+      submitAdd(){
+         AddItem(this.form).then(res=>{
+                // this.closeDialog()
+                 this.$refs.addInfo.resetFields();
+         })
       }
+      
     }
 
   }

@@ -82,6 +82,7 @@
                 <template slot-scope="scope">
                     <el-button type="danger" size="mini" @click="deleteItem(scope.row.id)">删除</el-button>
                     <el-button type="success" size="mini" @click="editInfo(scope.row.id)">编辑</el-button>
+
                     <el-button type="success" size="mini" @click="detailed(scope.row)">编辑详情</el-button>
                 </template>
             </el-table-column>
@@ -112,10 +113,8 @@
 </template>
 
 <script>
-  import { GetCategoryAll } from '../../api/new'
   import { GetList } from '../../api/newInfo'
   import DialogInfo from './dialog/EditInfo'
-
   export default {
     name: "index",
     data() {
@@ -126,15 +125,15 @@
         value: "",
         option: [],
         options: [],
-        total: 1000,
+        total: 0,
         dialog_info: false,
         table_data: [],
         info: {
-          categoryId: 1,
-          startTime: '2020-01-01 12:00:00',
-          endTime: '2020-12-12 12:00:00',
-          title: '手把手撸码前端',
-          id: 12,
+          categoryId: '',
+          startTime: '',
+          endTime: '',
+          title: '',
+          id:'' ,
           pageNumber: 1,
           pageSize: 10
         }
@@ -145,6 +144,7 @@
     },
     created() {
       this.getOption()
+      this.getList()
     },
     methods: {
       getOption() {
@@ -154,12 +154,18 @@
       },
       getList() {
         GetList(this.info).then(res => {
-          this.table_data = res.data.data
+          let Response = res.data.data
+          this.table_data = Response.data
+          this.total = Response.total
         })
       },
-      handleSizeChange() {
+      handleSizeChange(val) {
+        this.info.pageSize = val
+        this.getList()
       },
-      handleCurrentChange() {
+      handleCurrentChange(val) {
+        this.info.pageNumber = val
+        this.getList()
       },
       deleteItem(id) {
         this.hint({
@@ -173,7 +179,9 @@
       },
       editInfo() {
       },
-      detailed() {
+      detailed(row) {
+        this.$router.push({path:'InfoDetail',query:{id:row.id}})
+
       },
       handleSelectionChange() {
       },
