@@ -32,12 +32,12 @@
 </template>
 
 <script>
+    import { handleTableData } from './TableData'
   export default {
     name: "TableVue",
     data(){
       return{
         subTableData:{},
-
       }
     },
     props:{
@@ -48,14 +48,21 @@
       configTable:{
         type:Object,
         default:()=>{}
+      },
+      requestParams:{
+        type:Object,
+        default:()=>{}
       }
     },
     created() {
       this.copyConfig()
+      handleTableData(this.requestParams)
     },
     methods:{
       copyConfig(){
+        const keys = Object.keys(this.configTable)
         for( let key in this.configTable){
+          if( keys.includes(key))
           this.subTableData[key] = this.configTable[key]
         }
       }
