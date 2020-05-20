@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import { GetOtherToKen } from '../api/common'
+    import { GetOtherToKen } from '../../api/common'
   export default {
     name: "UploadImg",
     data() {

@@ -1,3 +1,4 @@
  export const TableUrl = {
-    'userInfo':'/user/getList/'
+    'userInfo':'/news/getList/',
+
  }

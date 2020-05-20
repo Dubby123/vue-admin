@@ -4,19 +4,23 @@
         <inputVue   v-model="username"
                     required
                     placeholder="Enter your username"></inputVue>
-        <table-vue  :configTable="configTable"  :requestParams ='requestParams' :tableData="tableData">
-            <template #:status ='propsData'   >
+        <table-vue  :configTable="configTable"  :requestParams ='requestParams' :tableData="tableData"  @selected="parentSelected">
+            <template #status ='propsData'   >
                 <el-switch
                         v-model="propsData.slotData.name"
                         active-color="#13ce66"
                         inactive-color="#ff4949">
                 </el-switch>
             </template>
-            <template #:operation='propsData' >
+            <template #operation='propsData' >
                 <el-button size="small" type="danger" @click="operation(propsData.slotData)">删除</el-button>
                 <el-button size="small" type="success" @click="operation(propsData.slotData)">编辑</el-button>
             </template>
+            <template #tableFoot >
+                <el-button @click="deleteAll">批量删除</el-button>
+            </template>
         </table-vue>
+<!--        <RegionSelect :cityPickerData.sync='cityPickerData'></RegionSelect>-->
 
     </div>
 </template>
@@ -25,11 +29,13 @@
     import  TableVue from '../../components/TableVue/TableVue'
     import SelectVue from '../../components/SelectVue/SelectVue'
     import inputVue from '../../components/inputVue'
+    import RegionSelect from '../../components/RegionSelect/RegionSelect'
   export default {
     name: "index",
     data(){
       return{
         username:'',
+        selectedIds:[],
         configTable:{
           selection: true,
           tHead: [
@@ -87,54 +93,8 @@
           { name: "楼号", key: "floorId", type: "select", options: [ ] },
           { name: "宿舍", key: "roomId", type: "select", options: [] }
         ],
-        tableData:[
-          {
-          title: '2016-05-02',
-          name: '王小虎',
-          phone:'16545489784',
-          address: '上海市普陀区金沙江路 1518 弄',
-          role:'管理员',
-          status:false
-
-        }, {
-          title: '2016-05-02',
-          name: '王小虎',
-          phone:'16545489784',
-          address: '上海市普陀区金沙江路 1518 弄',
-          role:'管理员',
-          status:false
-
-        },
-          {
-            title: '2016-05-02',
-            name: '王小虎',
-            phone:'16545489784',
-            address: '上海市普陀区金沙江路 1518 弄',
-            role:'管理员',
-            status:false
-
-          },{
-            title: '2016-05-02',
-            name: '王大虎',
-            phone:'16545489784',
-            address: '上海市普陀区金沙江路 1518 弄',
-            role:'管理员',
-            status:false
-
-          },
-          {
-            title: '2016-05-02',
-            name: '王小虎',
-            phone:'16545489784',
-            address: '上海市普陀区金沙江路 1518 弄',
-            role:'管理员',
-            status:false
-
-          },
-
-
-
-        ],
+        tableData:[],
+        cityPickerData:{},
         requestParams:{
           url:'userInfo',
           methons:'post',
@@ -148,12 +108,18 @@
     components:{
       TableVue,
       SelectVue,
-      inputVue
+      inputVue,
     },
     created(){
       console.log('132132',this.username)
     },
     methods:{
+      deleteAll(){
+        console.log('this.selectedIds',this.selectedIds)
+      },
+      parentSelected(data){
+        this.selectedIds = data
+      },
       findRepair(data){
         console.log(data)
       },
