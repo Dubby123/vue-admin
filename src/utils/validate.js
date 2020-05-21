@@ -25,3 +25,12 @@ export function validateVCode(value){
  * 没有使用default时，可以同时声明多个export。
  * 文件 import 需要花括号。
  */
+export function stripscript(s)
+{
+  var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]")
+  var rs = "";
+  for (let i = 0; i < s.length; i++) {
+    rs = rs+s.substr(i, 1).replace(pattern, '');
+  }
+  return rs;
+}

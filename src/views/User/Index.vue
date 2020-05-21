@@ -1,9 +1,9 @@
 <template>
     <div>
-        <select-vue  :items="items"  v-model="searchParams" @search="findRepair"  />
-        <inputVue   v-model="username"
-                    required
-                    placeholder="Enter your username"></inputVue>
+        <div class="top">
+            <select-vue  :items="items"  v-model="searchParams" @search="findRepair"  />
+            <el-button type="danger"    @click="dialog_info_flag =!dialog_info_flag" >新增用户</el-button>
+        </div>
         <table-vue  :configTable="configTable"  :requestParams ='requestParams' :tableData="tableData"  @selected="parentSelected">
             <template #status ='propsData'   >
                 <el-switch
@@ -20,22 +20,22 @@
                 <el-button @click="deleteAll">批量删除</el-button>
             </template>
         </table-vue>
-<!--        <RegionSelect :cityPickerData.sync='cityPickerData'></RegionSelect>-->
 
+        <add :flag.sync="dialog_info_flag"></add>
     </div>
 </template>
 
 <script>
-    import  TableVue from '../../components/TableVue/TableVue'
-    import SelectVue from '../../components/SelectVue/SelectVue'
-    import inputVue from '../../components/inputVue'
-    import RegionSelect from '../../components/RegionSelect/RegionSelect'
+    import  TableVue from '@c/TableVue/TableVue'
+    import SelectVue from '@c/SelectVue/SelectVue'
+    import add from './dialog/add'
   export default {
     name: "index",
     data(){
       return{
         username:'',
         selectedIds:[],
+        dialog_info_flag:false,
         configTable:{
           selection: true,
           tHead: [
@@ -88,7 +88,6 @@
           roomId: undefined
         },
         items:[
-          { name: "发起人", key: "name" },
           { name: "维修师傅", key: "repairerId", type: "select", options: [] },
           { name: "楼号", key: "floorId", type: "select", options: [ ] },
           { name: "宿舍", key: "roomId", type: "select", options: [] }
@@ -108,7 +107,7 @@
     components:{
       TableVue,
       SelectVue,
-      inputVue,
+      add
     },
     created(){
       console.log('132132',this.username)
@@ -130,6 +129,10 @@
   }
 </script>
 
-<style scoped lang='less'>
+<style scoped lang='scss'>
+    .top{
+        width: 800px;
+        display: flex;
+    }
 
 </style>
