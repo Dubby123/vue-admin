@@ -1,11 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import layout from '../views/layout/index.vue'
-import  { getToKen } from "../utils/app";
-
 Vue.use(VueRouter)
 
-const routes = [
+ export  const defaultRouterMap = [
   {
     path: '/',
     redirect:'/login',
@@ -28,16 +26,24 @@ const routes = [
       component: () => import( '../views/Console/Index'),
     }]
   },
+
+]
+export const  asynRouterMap = [
   {
     path: '/info',
-    name:'信息管理',
     component: layout,
+    mate:{
+      role:['sale','manager'],
+      system:'infoSystem',
+      name: "用户管理",
+      icon: 'user'
+    },
     children:[
       {
-      path: '/infoIndex',
-      name:'信息类表',
-      component: () => import( '../views/Info/Index'),
-    },
+        path: '/infoIndex',
+        name:'信息类表',
+        component: () => import( '../views/Info/Index'),
+      },
       {
         path: '/infoCategory',
         name:'信息分类',
@@ -54,6 +60,12 @@ const routes = [
   {
     path: '/user',
     name:'用户管理',
+    mate:{
+      role:['sale'],
+      system:'userSystem',
+      name: "用户管理",
+      icon: 'user'
+    },
     component: layout,
     children:[
       {
@@ -64,20 +76,41 @@ const routes = [
     ]
   }
 ]
- const whiteRouter = ['/login']
 
-const router = new VueRouter({
-  routes
+const createRouter = () => new VueRouter ({
+  mode: 'history',
+  scrollBehavior () {
+    return { x:0,y:0}
+  },
+  routers: defaultRouterMap
 })
-router.beforeEach((to ,from,next)=>{
-  if( whiteRouter.indexOf(to.path)!==-1){
-    next()
-  }else {
-    if(!getToKen() ){
-      next('/login')
-    }else {
-      next()
-    }
-  }
-})
-export default router
+
+const  router = createRouter()
+
+/*
+* 重置路由，相当于重新写个路由
+* **/
+export function resetRouter() {
+  const newRouter = createRouter()
+  console.log('newRouter.matcher',newRouter.matcher)
+  router.matcher = newRouter.matcher
+}
+
+export  default router
+
+
+//
+//  const whiteRouter = ['/login']
+//
+// router.beforeEach((to ,from,next)=>{
+//   if( whiteRouter.indexOf(to.path)!==-1){
+//     next()
+//   }else {
+//     if(!getToKen() ){
+//       next('/login')
+//     }else {
+//       next()
+//     }
+//   }
+// })
+// export default router

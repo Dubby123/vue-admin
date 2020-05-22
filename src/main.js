@@ -7,6 +7,7 @@ import './styles/main.scss'
 import './icons/index'
 import 'element-ui/lib/theme-chalk/index.css';
 import  global from './utils/global' //全局注册方法
+import permission from './utils/permission'
 
 Vue.use(global)
 Vue.use(ElementUI);

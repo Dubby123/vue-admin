@@ -4,6 +4,10 @@ const state = {
   userInfo: '',
   token: ''
 }
+const getters={
+  userInfo : state => state.userInfo,
+  token : state => state.token
+}
 const mutations = {
   SET_USERINFO(state, value) {
     state.userInfo = value
@@ -30,6 +34,7 @@ const actions = {
 export default {
   namespaced: true,
   state,
+  getters,
   mutations,
   actions
 }

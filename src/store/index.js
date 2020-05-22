@@ -3,12 +3,14 @@ import Vuex from 'vuex'
 import app from './modules/app'
 import login from './modules/login'
 import category from './modules/category'
+import permission from './modules/permission'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     app,
     login,
-    category
+    category,
+    permission
   }
 })

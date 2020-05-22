@@ -22,7 +22,11 @@
             </el-form-item>
             <el-form-item label="角色：" :label-width="formLabelWidth" prop="role">
                 <el-checkbox-group v-model="form.role">
-                    <el-checkbox v-for="item in roleItem" :key="item.role" :label="item.role">{{ item.name }}</el-checkbox>
+
+                    <el-checkbox label="信息管理"></el-checkbox>
+                    <el-checkbox label="用户信息"></el-checkbox>
+
+<!--                    <el-checkbox v-for="item in roleItem" :key="item.role" :label="item.role">{{ item.name }}</el-checkbox>-->
                 </el-checkbox-group>
             </el-form-item>
             <el-form-item label="按钮：" :label-width="formLabelWidth">

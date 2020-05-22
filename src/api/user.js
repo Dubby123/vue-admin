@@ -7,3 +7,14 @@ export function getCityPicker(data) {
     data:data
   })
 }
+
+/**
+ * 角色列表
+ */
+export function GetRole(data = {}){
+  return service.request({
+    method: "post",
+    url: "/role/",
+    data
+  })
+}
