@@ -1,9 +1,12 @@
-import  { defaultRouterMap , asynRouterMap  } from '../../router/index'
+import  { defaultRouterMap , asynRouterMap  } from '@/router/index'
 import { GetRole } from '@/api/user'
 
 function hasPermission(roles,route) {
-  if(route.mate && route.mate.roles){
-    return   roles.some(item =>(route.mate.roles.include(item)))
+  //roles :角色列表
+  //route : 单个的路由
+  const curRoles = roles.map(item => item.role)
+  if(route.mate && route.mate.role){
+    return   curRoles.some(item=>route.mate.role.includes(item))
   }else {
     return true
   }
@@ -11,7 +14,6 @@ function hasPermission(roles,route) {
 }
  function filterAsyncRouter( routes, roles) {
   const res =[]
-  //传递过来的是['admin','magerage']
   routes.forEach(item=> {
     const tem = { ...item}
     if( hasPermission(roles,tem)){
@@ -19,8 +21,10 @@ function hasPermission(roles,route) {
         tem.children = filterAsyncRouter(tem.children,roles)
       }
       res.push(tem)
+
     }
   })
+   return res
 }
 
 const state = {
@@ -55,9 +59,10 @@ const  actions ={
     })
   },
   handleRoles({ commit } ,roles){
-    new Promise((resolve ) =>{
+
+   return  new Promise((resolve ) =>{
       let accessedRouter
-      if(roles.includes('admin')){
+      if(roles.some(item=>item.role ==='admin')){
         accessedRouter = asynRouterMap || []
       }else {
         //路由数组和权限数组做匹配

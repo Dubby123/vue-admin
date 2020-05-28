@@ -3,10 +3,10 @@ import VueRouter from 'vue-router'
 import layout from '../views/layout/index.vue'
 Vue.use(VueRouter)
 
- export  const defaultRouterMap = [
+ export const defaultRouterMap = [
   {
     path: '/',
-    redirect:'/login',
+    redirect:'login',
     hidden:true
   },
   {
@@ -82,7 +82,7 @@ const createRouter = () => new VueRouter ({
   scrollBehavior () {
     return { x:0,y:0}
   },
-  routers: defaultRouterMap
+  routes: defaultRouterMap
 })
 
 const  router = createRouter()
@@ -90,27 +90,9 @@ const  router = createRouter()
 /*
 * 重置路由，相当于重新写个路由
 * **/
-export function resetRouter() {
-  const newRouter = createRouter()
-  console.log('newRouter.matcher',newRouter.matcher)
-  router.matcher = newRouter.matcher
-}
-
+// export function resetRouter() {
+//   const newRouter = createRouter()
+//   router.matcher = newRouter.matcher
+// }
 export  default router
 
-
-//
-//  const whiteRouter = ['/login']
-//
-// router.beforeEach((to ,from,next)=>{
-//   if( whiteRouter.indexOf(to.path)!==-1){
-//     next()
-//   }else {
-//     if(!getToKen() ){
-//       next('/login')
-//     }else {
-//       next()
-//     }
-//   }
-// })
-// export default router

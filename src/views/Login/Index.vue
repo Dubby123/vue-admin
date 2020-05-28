@@ -88,7 +88,7 @@
       };
       return{
         menuTab:[{ txt:'登录',type: 'login' },{ txt:'注册',type: 'register'}],
-        model:'register',
+        model:'login',
         loginButtonStatus:true,
         timer:0,
         ruleForm: {
@@ -129,7 +129,7 @@
       },
       //获取验证码
       getSms(){
-        console.log('this.ruleForm.username',this.ruleForm.username)
+
           if(this.ruleForm.username== '' ) {
             this.$message.error('邮箱不能为空！！');
             return false;

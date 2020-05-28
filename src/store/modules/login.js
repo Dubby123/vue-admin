@@ -1,12 +1,12 @@
 import { Login } from "../../api/login";
-import { setToKen,setUserName} from '../../utils/app'
+import { setToKen,setUserName,getToKen,getUserName} from '../../utils/app'
 const state = {
-  userInfo: '',
-  token: ''
+  userInfo: getUserName()||'',
+  token:getToKen()||''
 }
 const getters={
-  userInfo : state => state.userInfo,
-  token : state => state.token
+  userInfo : state => state.userInfo ,
+  token : state => state.token,
 }
 const mutations = {
   SET_USERINFO(state, value) {

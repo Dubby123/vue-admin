@@ -21,13 +21,18 @@
                 <el-radio v-model="form.status" label="2">启用</el-radio>
             </el-form-item>
             <el-form-item label="角色：" :label-width="formLabelWidth" prop="role">
-                <el-checkbox-group v-model="form.role">
 
-                    <el-checkbox label="信息管理"></el-checkbox>
-                    <el-checkbox label="用户信息"></el-checkbox>
+                <template>
+                    <el-checkbox-group v-model="form.role">
 
-<!--                    <el-checkbox v-for="item in roleItem" :key="item.role" :label="item.role">{{ item.name }}</el-checkbox>-->
-                </el-checkbox-group>
+                        <el-checkbox   v-for="item in roleItem"  :key="item.role"  :label="item.role">{{ item.name }}</el-checkbox>
+
+
+                    </el-checkbox-group>
+                </template>
+
+
+
             </el-form-item>
             <el-form-item label="按钮：" :label-width="formLabelWidth">
                 <template v-if="btnPerm.length > 0">

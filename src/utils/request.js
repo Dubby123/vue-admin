@@ -2,7 +2,7 @@ import axios from "axios";
 import { Message } from "element-ui";
 import { getToKen, getUserName } from "@/utils/app";
 
-const BASEURL = process.env.NODE_ENV === 'production' ? '' : '/devApi';
+const BASEURL = process.env.NODE_ENV === 'production' ? '' : '/api';
 const service = axios.create({
   baseURL: BASEURL,  // http://192.168.0.106:8080/devApi/  == http://www.web-jshtml.cn/productapi/productapi
   timeout: 15000,   // 超时
@@ -35,15 +35,13 @@ service.interceptors.response.use(function (response) {
   let data = response.data
   // 业务需求
 
-  if(data.resCode !== 0) {
+  if (data.resCode !== 0) {
     Message.error(data.message);
     return Promise.reject(data);
-  }else{
+  } else {
     return response;
   }
-
-},  error => {
-
+}, error => {
   return Promise.reject(error);
 });
 
